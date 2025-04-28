@@ -1,0 +1,89 @@
+@model List<Homework.Models.TestData>
+@{
+    ViewData["Title"] = "我的記帳本";
+}
+<div class="container mt-4">
+    <div class="card bg-light">
+        <div class="card-body">
+            <form asp-action="AddData" method="post">
+                <div class="row mb-3">
+                    <label for="category" class="col-sm-2 col-form-label">類別</label>
+                    <div class="col-sm-10">
+                        <select id="category" name="Category" class="form-select" required>
+                            <option value="" selected>請選擇</option>
+                            <option>支出</option>
+                            <option>收入</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="money" class="col-sm-2 col-form-label">金額</label>
+                    <div class="col-sm-10">
+                        <input type="number" class="form-control" id="money" name="Money" placeholder="金額" required />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="date" class="col-sm-2 col-form-label">日期</label>
+                    <div class="col-sm-10">
+                        <input type="date" class="form-control" id="date" name="Date" required />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label for="description" class="col-sm-2 col-form-label">備註</label>
+                    <div class="col-sm-10">
+                        <textarea class="form-control" id="description" name="Description" rows="3"></textarea>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <div class="col-sm-10 offset-sm-2">
+                        <div class="alert alert-info" role="alert">
+                            程式碼是是參考學長的教學製作，目前內容還在研究學習中，還請見諒。
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-10 offset-sm-2">
+                        <button type="submit" class="btn btn-primary">送出</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-12">
+            <table class="table table-bordered table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>#</th>
+                        <th>類別</th>
+                        <th>日期</th>
+                        <th>金額</th>
+                        <th>備註</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>@item.Id</td>
+                                <td>@item.Category</td>
+                                <td>@item.Money</td>
+                                <td>@item.Date.ToString("yyyy-MM-dd")</td>
+                                <td>@item.Description</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center">目前沒有資料</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
